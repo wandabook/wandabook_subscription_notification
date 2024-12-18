@@ -1,5 +1,5 @@
 import { Client, Databases, Users } from 'node-appwrite';
-const axios = require("axios");
+import axios from 'axios';
 
 // This Appwrite function will be executed every time your function is triggered
 export default async ({ req, res, log, error }) => {

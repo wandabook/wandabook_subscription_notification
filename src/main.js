@@ -10,7 +10,7 @@ export default async ({ req, res, log, error }) => {
     .setProject(process.env.APPWRITE_FUNCTION_PROJECT_ID)
     .setKey(req.headers['x-appwrite-key'] ?? '');
   const database = new Databases(client);
-
+  const users = new Users(client);
   async function notifyExpiringSubscriptions() {
     const databaseId = "[YOUR_DATABASE_ID]"; // Remplacez par l'ID de votre base de données
     const collectionId = "[YOUR_COLLECTION_ID]"; // Remplacez par l'ID de votre collection
@@ -105,10 +105,9 @@ export default async ({ req, res, log, error }) => {
   }
 
   // The req object contains the request data
-  if (req.path === "/ping") {
-    // Use res object to respond with text(), json(), or binary()
-    // Don't forget to return a response!
-    return res.text("Pong");
+  if (req.path === "/users") {
+    const us = await users.list();
+    return res.json(us);
   }
 
   return res.json({

@@ -1,4 +1,4 @@
-import { Client, Databases, Users } from 'node-appwrite';
+import { Client, Databases, ID, Users } from 'node-appwrite';
 import axios from 'axios';
 
 // This Appwrite function will be executed every time your function is triggered
@@ -107,6 +107,16 @@ export default async ({ req, res, log, error }) => {
   }
 
   // The req object contains the request data
+  if (req.path === "/users") {
+    const us = await users.list();
+    return res.json(us);
+  }
+  if (req.method === "POST") {
+    if (req.path === "/users") {
+      const { email, name } = req.bodyJson;
+      return await users.create(ID.unique(), email, null, null, name);
+    }
+  }
   if (req.path === "/users") {
     const us = await users.list();
     return res.json(us);

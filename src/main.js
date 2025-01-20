@@ -73,7 +73,7 @@ export default async ({ req, res, log, error }) => {
                 },
                 {
                   "type": "text",
-                  "text": expiredDate
+                  "text": `${expiredDate}`
                 }
               ]
             }

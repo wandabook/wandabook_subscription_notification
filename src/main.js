@@ -63,10 +63,6 @@ export default async ({ req, res, log, error }) => {
           "language": {
             "code": "en_US"
           },
-          "components": [
-            first_name,
-            expiredDate
-          ]
         }
       };
 

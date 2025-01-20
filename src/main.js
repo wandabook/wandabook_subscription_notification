@@ -113,14 +113,14 @@ export default async ({ req, res, log, error }) => {
   }
   if (req.method === "POST") {
     if (req.path === "/users") {
-      const { email, name } = req.bodyJson;
-      return (await users.create(ID.unique(), email, null, null, name));
+      const { email, phone, name } = req.bodyJson;
+      return (await users.create(ID.unique(), email, phone, null, name));
     }
-  }
-  if (req.path === "/users") {
-    const us = await users.list();
-    return res.json(us);
-  }
+  } else
+    if (req.path === "/users") {
+      const us = await users.list();
+      return res.json(us);
+    }
 
   return res.json({
     motto: "Build like a team of hundreds_",

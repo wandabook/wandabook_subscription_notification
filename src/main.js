@@ -29,7 +29,7 @@ export default async ({ req, res, log, error }) => {
       const users = response.documents;
 
       if (users.length === 0) {
-        console.log("Aucun utilisateur avec une fin d'abonnement dans 4 jours.");
+        log("Aucun utilisateur avec une fin d'abonnement dans 4 jours.");
         return;
       }
 
@@ -40,7 +40,7 @@ export default async ({ req, res, log, error }) => {
         // Exemple avec une API WhatsApp/SMS (Twilio, WhatsApp API)
         await sendWhatsAppMessage(user.phone, message);
 
-        console.log(`Message envoyé à ${user.rst_name} (${user.phone}).`);
+        log(`Message envoyé à ${user.rst_name} (${user.phone}).`);
       }
     } catch (error) {
       console.error("Erreur lors de la récupération des utilisateurs ou de l'envoi :", error);

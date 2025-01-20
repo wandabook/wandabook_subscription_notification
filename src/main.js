@@ -50,13 +50,13 @@ export default async ({ req, res, log, error }) => {
 
   async function sendWhatsAppMessage(phoneNumber, first_name, expiredDate) {
     const API_URL = "https://graph.facebook.com/v21.0/204442369428820/messages"; // Remplacez [YOUR_PHONE_NUMBER_ID] par l'ID de votre numéro
-    const ACCESS_TOKEN = "EAAYEu6JFiHEBO2blsyZBLJQffaO4UkzdhRGuQYQXTEpZBEspZBGEz2HVTGkwrKV7j39ukHZBP6MZBqL0raFyNJqZAhiXwcr8C6iCOkkZBhXfwawnuq2ZCDd8uyHYSQi7G3gjV7ZC4gHv1DYQd7sN68HZCHrMVh5FLb9mlOiulEJYdi2dmlZBCpd0sV12mMlb3VUvzZBPDIKP2mSY5cn99AwiCZBLKkw4BtOYZD"; // Votre token d'accès permanent
+    const ACCESS_TOKEN = "EAAYEu6JFiHEBO4Dio7jLmZAtTqdFs8By6SEnVUyJZCZA8Wa3jdZAYWiYpGCR9BBzpsczaoez6urb6gfu36yZBD0lTuWIEAcSRCjdXp3U4oaZCe9JeZAU1ao4aSvQe26g2fETo9q1iMuugQQ9qP22rbLEuhAZCh7ZAgDwu0PdTw7ZCHWzJnVbxoQmZC0Dbm4dYEPC2L3pWfZAuOZCwmQDrsRiN3ZA7ZAm7xfQZBAZD"; // Votre token d'accès permanent
 
     try {
       // Corps de la requête pour envoyer un message texte
       const payload = {
         messaging_product: "whatsapp",
-        to: '237675969334',
+        to: '237659591504',
         type: "template",
         "template": {
           "name": "auto_pay_reminder_3",

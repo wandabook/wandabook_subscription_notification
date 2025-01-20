@@ -35,12 +35,12 @@ export default async ({ req, res, log, error }) => {
 
       // Envoi de messages
       for (const user of users) {
-        const message = `Bonjour ${user.rst_name}, votre abonnement expire le ${user.endSubscriptionDate}. Pensez à le renouveler pour éviter l'interruption des services.`;
+        const message = `Bonjour ${user.first_name}, votre abonnement expire le ${user.endSubscriptionDate}. Pensez à le renouveler pour éviter l'interruption des services.`;
 
         // Exemple avec une API WhatsApp/SMS (Twilio, WhatsApp API)
         await sendWhatsAppMessage(user.phone, message);
 
-        log(`Message envoyé à ${user.rst_name} (${user.phone}).`);
+        log(`Message envoyé à ${user.first_name} (${user.phone}).`);
       }
     } catch (error) {
       console.error("Erreur lors de la récupération des utilisateurs ou de l'envoi :", error);

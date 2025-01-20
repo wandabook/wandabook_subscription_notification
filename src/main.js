@@ -72,8 +72,8 @@ export default async ({ req, res, log, error }) => {
                   "text": 'first_name'
                 },
                 {
-                  "type": "date",
-                  "text": `2025-10-05`
+                  "type": "text",
+                  "text": `50000`
                 }
               ]
             }

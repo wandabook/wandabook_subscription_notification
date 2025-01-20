@@ -38,7 +38,7 @@ export default async ({ req, res, log, error }) => {
         const message = `Bonjour ${user.first_name}, votre abonnement expire le ${user.endSubscriptionDate}. Pensez à le renouveler pour éviter l'interruption des services.`;
 
         // Exemple avec une API WhatsApp/SMS (Twilio, WhatsApp API)
-        await sendWhatsAppMessage(user.phone, message);
+        await sendWhatsAppMessage(user.phone, user.first_name, user.endSubscriptionDate);
 
         log(`Message envoyé à ${user.first_name} (${user.phone}).`);
       }
@@ -48,7 +48,7 @@ export default async ({ req, res, log, error }) => {
   }
 
 
-  async function sendWhatsAppMessage(phoneNumber, messageText) {
+  async function sendWhatsAppMessage(phoneNumber, first_name, expiredDate) {
     const API_URL = "https://graph.facebook.com/v21.0/204442369428820/messages"; // Remplacez [YOUR_PHONE_NUMBER_ID] par l'ID de votre numéro
     const ACCESS_TOKEN = "EAAYEu6JFiHEBO2blsyZBLJQffaO4UkzdhRGuQYQXTEpZBEspZBGEz2HVTGkwrKV7j39ukHZBP6MZBqL0raFyNJqZAhiXwcr8C6iCOkkZBhXfwawnuq2ZCDd8uyHYSQi7G3gjV7ZC4gHv1DYQd7sN68HZCHrMVh5FLb9mlOiulEJYdi2dmlZBCpd0sV12mMlb3VUvzZBPDIKP2mSY5cn99AwiCZBLKkw4BtOYZD"; // Votre token d'accès permanent
 
@@ -59,10 +59,14 @@ export default async ({ req, res, log, error }) => {
         to: '237675969334',
         type: "template",
         "template": {
-          "name": "hello_world",
+          "name": "auto_pay_reminder_3",
           "language": {
             "code": "en_US"
           },
+          "components": [
+            first_name,
+            expiredDate
+          ]
         }
       };
 

@@ -69,7 +69,7 @@ export default async ({ req, res, log, error }) => {
               "parameters": [
                 {
                   "type": "text",
-                  "text": first_name
+                  "text": 'first_name'
                 },
                 {
                   "type": "text",

@@ -71,7 +71,11 @@ export default async ({ req, res, log, error }) => {
         },
       });
 
-      console.log(`Message envoyé avec succès à ${phoneNumber}:`, JSON.stringify(response));
+      console.log(`Message envoyé avec succès à ${phoneNumber}:`, JSON.stringify(response.data));
+      log(`Message envoyé avec succès à ${phoneNumber}:`, JSON.stringify(response.status));
+      log(`Message envoyé avec succès à ${phoneNumber}:`, JSON.stringify(response.statusText));
+      log(`Message envoyé avec succès à ${phoneNumber}:`, JSON.stringify(response.config));
+
       return response.data;
     } catch (error) {
       console.error(`Erreur lors de l'envoi du message à ${phoneNumber}:`, error.response?.data || error.message);

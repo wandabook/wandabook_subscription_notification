@@ -50,17 +50,20 @@ export default async ({ req, res, log, error }) => {
 
   async function sendWhatsAppMessage(phoneNumber, messageText) {
     const API_URL = "https://graph.facebook.com/v21.0/204442369428820/messages"; // Remplacez [YOUR_PHONE_NUMBER_ID] par l'ID de votre numéro
-    const ACCESS_TOKEN = "EAAYEu6JFiHEBOZCnRKwawQzcyWn0fwCSpKPzMVTGreT6LOe4Yqvx6NKCZBM7TAvnHQsJzXDrKAeerwBv1c0oEVarvfSYmTc3YESx3HC4juQAZAiksMzBWLV2f3yjIlSmNggX6uyDX14H7DwIqudbJcy3JJlZAVZBceDxfs1rxNQwcQKOCyVpiuaX10TgDAiHUXUyMd0amFnJ1zgjrttmZAzQqp0rqG"; // Votre token d'accès permanent
+    const ACCESS_TOKEN = "EAAYEu6JFiHEBO2blsyZBLJQffaO4UkzdhRGuQYQXTEpZBEspZBGEz2HVTGkwrKV7j39ukHZBP6MZBqL0raFyNJqZAhiXwcr8C6iCOkkZBhXfwawnuq2ZCDd8uyHYSQi7G3gjV7ZC4gHv1DYQd7sN68HZCHrMVh5FLb9mlOiulEJYdi2dmlZBCpd0sV12mMlb3VUvzZBPDIKP2mSY5cn99AwiCZBLKkw4BtOYZD"; // Votre token d'accès permanent
 
     try {
       // Corps de la requête pour envoyer un message texte
       const payload = {
         messaging_product: "whatsapp",
         to: '237675969334',
-        type: "text",
-        text: {
-          body: messageText,
-        },
+        type: "template",
+        "template": {
+          "name": "hello_world",
+          "language": {
+            "code": "en_US"
+          },
+        }
       };
 
       // Envoi de la requête POST

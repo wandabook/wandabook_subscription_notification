@@ -69,11 +69,11 @@ export default async ({ req, res, log, error }) => {
               "parameters": [
                 {
                   "type": "text",
-                  "text": "Pablo"
+                  "text": first_name
                 },
                 {
                   "type": "text",
-                  "text": "566701"
+                  "text": expiredDate
                 }
               ]
             }

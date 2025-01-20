@@ -49,8 +49,8 @@ export default async ({ req, res, log, error }) => {
 
 
   async function sendWhatsAppMessage(phoneNumber, messageText) {
-    const API_URL = "https://graph.facebook.com/v17.0/204442369428820/messages"; // Remplacez [YOUR_PHONE_NUMBER_ID] par l'ID de votre numéro
-    const ACCESS_TOKEN = "EAAYEu6JFiHEBO7H38mLuudMnl9WZCBtAks9Uoj0GsKWtPNcEwTsZC4LopiVC87WKrp2kqy5VC9ekZAZADSQgvsFWN55IYxSwuBrVGZC1q8myIZCgvgImduQIQVdKSa3i02rxAxX3fJmR2IWchrwyMqcC1Xqr7Ns3IWUWwf53Y7eEyESLqdTAIvgi1VbkE38uivcZCsH0QwaTIvci5aIefOCijTIuacZD"; // Votre token d'accès permanent
+    const API_URL = "https://graph.facebook.com/v21.0/204442369428820/messages"; // Remplacez [YOUR_PHONE_NUMBER_ID] par l'ID de votre numéro
+    const ACCESS_TOKEN = "EAAYEu6JFiHEBOZCnRKwawQzcyWn0fwCSpKPzMVTGreT6LOe4Yqvx6NKCZBM7TAvnHQsJzXDrKAeerwBv1c0oEVarvfSYmTc3YESx3HC4juQAZAiksMzBWLV2f3yjIlSmNggX6uyDX14H7DwIqudbJcy3JJlZAVZBceDxfs1rxNQwcQKOCyVpiuaX10TgDAiHUXUyMd0amFnJ1zgjrttmZAzQqp0rqG"; // Votre token d'accès permanent
 
     try {
       // Corps de la requête pour envoyer un message texte

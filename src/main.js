@@ -79,7 +79,7 @@ export default async ({ req, res, log, error }) => {
   }
   try {
     notifyExpiringSubscriptions();
-    log(`Total users: ${response.total}`);
+    log(`Total users: done`);
   } catch (err) {
     error("Could not list users: " + err.message);
   }

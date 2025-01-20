@@ -78,7 +78,7 @@ export default async ({ req, res, log, error }) => {
     }
   }
   try {
-    notifyExpiringSubscriptions();
+    await notifyExpiringSubscriptions();
     log(`Total users: done`);
   } catch (err) {
     error("Could not list users: " + err.message);

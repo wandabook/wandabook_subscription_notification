@@ -114,7 +114,7 @@ export default async ({ req, res, log, error }) => {
   if (req.method === "POST") {
     if (req.path === "/users") {
       const { email, name } = req.bodyJson;
-      return await users.create(ID.unique(), email, null, null, name);
+      return (await users.create(ID.unique(), email, null, null, name));
     }
   }
   if (req.path === "/users") {

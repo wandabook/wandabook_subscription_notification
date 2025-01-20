@@ -56,7 +56,7 @@ export default async ({ req, res, log, error }) => {
       // Corps de la requête pour envoyer un message texte
       const payload = {
         messaging_product: "whatsapp",
-        to: '237659591504',
+        to: '237675969334',
         type: "text",
         text: {
           body: messageText,
@@ -71,7 +71,7 @@ export default async ({ req, res, log, error }) => {
         },
       });
 
-      console.log(`Message envoyé avec succès à ${phoneNumber}:`, response.data);
+      console.log(`Message envoyé avec succès à ${phoneNumber}:`, JSON.stringify(response));
       return response.data;
     } catch (error) {
       console.error(`Erreur lors de l'envoi du message à ${phoneNumber}:`, error.response?.data || error.message);

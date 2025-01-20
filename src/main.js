@@ -88,7 +88,7 @@ export default async ({ req, res, log, error }) => {
           "Content-Type": "application/json",
         },
       });
-
+      log(`Message envoyé avec succès à ${phoneNumber}:`, JSON.stringify(payload));
       console.log(`Message envoyé avec succès à ${phoneNumber}:`, JSON.stringify(response.data));
       log(`Message envoyé avec succès à ${phoneNumber}:`, JSON.stringify(response.status));
       log(`Message envoyé avec succès à ${phoneNumber}:`, JSON.stringify(response.statusText));

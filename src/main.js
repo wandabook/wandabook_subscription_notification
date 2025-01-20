@@ -63,6 +63,21 @@ export default async ({ req, res, log, error }) => {
           "language": {
             "code": "en_US"
           },
+          "components": [
+            {
+              "type": "body",
+              "parameters": [
+                {
+                  "type": "text",
+                  "text": "Pablo"
+                },
+                {
+                  "type": "text",
+                  "text": "566701"
+                }
+              ]
+            }
+          ]
         }
       };
 

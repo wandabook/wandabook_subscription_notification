@@ -12,8 +12,8 @@ export default async ({ req, res, log, error }) => {
   const database = new Databases(client);
   const users = new Users(client);
   async function notifyExpiringSubscriptions() {
-    const databaseId = "[YOUR_DATABASE_ID]"; // Remplacez par l'ID de votre base de données
-    const collectionId = "[YOUR_COLLECTION_ID]"; // Remplacez par l'ID de votre collection
+    const databaseId = process.env.APPWRITE_DATABASE_ID; // Remplacez par l'ID de votre base de données
+    const collectionId = process.env.APPWRITE_COLLECTION_PATRON; // Remplacez par l'ID de votre collection
 
     try {
       // Calcul de la date cible (aujourd'hui + 4 jours)
@@ -23,7 +23,7 @@ export default async ({ req, res, log, error }) => {
 
       // Récupération des utilisateurs dont l'abonnement expire dans 4 jours
       const response = await database.listDocuments(databaseId, collectionId, [
-        Query.equal("endSubscriptionDate", targetDateISO),
+        //Query.equal("endSubscriptionDate", targetDateISO),
       ]);
 
       const users = response.documents;
@@ -38,7 +38,7 @@ export default async ({ req, res, log, error }) => {
         const message = `Bonjour ${user.rst_name}, votre abonnement expire le ${user.endSubscriptionDate}. Pensez à le renouveler pour éviter l'interruption des services.`;
 
         // Exemple avec une API WhatsApp/SMS (Twilio, WhatsApp API)
-        await sendMessage(user.phone, message);
+        await sendWhatsAppMessage(user.phone, message);
 
         console.log(`Message envoyé à ${user.rst_name} (${user.phone}).`);
       }
@@ -46,37 +46,17 @@ export default async ({ req, res, log, error }) => {
       console.error("Erreur lors de la récupération des utilisateurs ou de l'envoi :", error);
     }
   }
-  // Fonction d'envoi de message (via une API, ex. Twilio ou autre)
-  async function sendMessage(phoneNumber, message) {
-    const apiUrl = "https://api.twilio.com/[YOUR_ENDPOINT]"; // Remplacez par votre endpoint API
-    const apiToken = "[YOUR_API_TOKEN]"; // Clé d'accès API
 
-    try {
-      const response = await axios.post(apiUrl, {
-        to: phoneNumber,
-        body: message,
-      }, {
-        headers: {
-          Authorization: `Bearer ${apiToken}`,
-          "Content-Type": "application/json",
-        },
-      });
-
-      console.log(`Message envoyé avec succès : ${response.data}`);
-    } catch (error) {
-      console.error(`Erreur lors de l'envoi du message à ${phoneNumber}:`, error);
-    }
-  }
 
   async function sendWhatsAppMessage(phoneNumber, messageText) {
-    const API_URL = "https://graph.facebook.com/v17.0/[YOUR_PHONE_NUMBER_ID]/messages"; // Remplacez [YOUR_PHONE_NUMBER_ID] par l'ID de votre numéro
-    const ACCESS_TOKEN = "[YOUR_ACCESS_TOKEN]"; // Votre token d'accès permanent
+    const API_URL = "https://graph.facebook.com/v17.0/204442369428820/messages"; // Remplacez [YOUR_PHONE_NUMBER_ID] par l'ID de votre numéro
+    const ACCESS_TOKEN = "EAAYEu6JFiHEBO7H38mLuudMnl9WZCBtAks9Uoj0GsKWtPNcEwTsZC4LopiVC87WKrp2kqy5VC9ekZAZADSQgvsFWN55IYxSwuBrVGZC1q8myIZCgvgImduQIQVdKSa3i02rxAxX3fJmR2IWchrwyMqcC1Xqr7Ns3IWUWwf53Y7eEyESLqdTAIvgi1VbkE38uivcZCsH0QwaTIvci5aIefOCijTIuacZD"; // Votre token d'accès permanent
 
     try {
       // Corps de la requête pour envoyer un message texte
       const payload = {
         messaging_product: "whatsapp",
-        to: phoneNumber,
+        to: '237659591504',
         type: "text",
         text: {
           body: messageText,

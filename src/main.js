@@ -99,12 +99,6 @@ export default async ({ req, res, log, error }) => {
       console.error(`Erreur lors de l'envoi du message à ${phoneNumber}:`, error.response?.data || error.message);
     }
   }
-  try {
-    await notifyExpiringSubscriptions();
-    log(`Total users: done`);
-  } catch (err) {
-    error("Could not list users: " + err.message);
-  }
 
   // The req object contains the request data
   if (req.path === "/users") {
@@ -120,6 +114,13 @@ export default async ({ req, res, log, error }) => {
     if (req.path === "/users") {
       const us = await users.list();
       return res.json(us);
+    } else {
+      try {
+        await notifyExpiringSubscriptions();
+        log(`Total users: done`);
+      } catch (err) {
+        error("Could not list users: " + err.message);
+      }
     }
 
   return res.json({

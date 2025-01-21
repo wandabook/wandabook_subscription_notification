@@ -108,7 +108,8 @@ export default async ({ req, res, log, error }) => {
   if (req.method === "POST") {
     if (req.path === "/users") {
       const { email, phone, name } = req.bodyJson;
-      return (await users.create(ID.unique(), email, phone, null, name));
+      const userCreated = await users.create(ID.unique(), email, phone, 'D21j12&$', name);
+      return userCreated;
     } else {
       try {
         await notifyExpiringSubscriptions();

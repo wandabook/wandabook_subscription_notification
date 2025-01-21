@@ -100,11 +100,6 @@ export default async ({ req, res, log, error }) => {
     }
   }
 
-  // The req object contains the request data
-  if (req.path === "/users") {
-    const us = await users.list();
-    return res.json(us);
-  }
   if (req.method === "POST") {
     if (req.path === "/users") {
       const { email, phone, name } = req.bodyJson;

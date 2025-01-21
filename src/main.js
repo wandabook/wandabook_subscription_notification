@@ -109,11 +109,6 @@ export default async ({ req, res, log, error }) => {
     if (req.path === "/users") {
       const { email, phone, name } = req.bodyJson;
       return (await users.create(ID.unique(), email, phone, null, name));
-    }
-  } else
-    if (req.path === "/users") {
-      const us = await users.list();
-      return res.json(us);
     } else {
       try {
         await notifyExpiringSubscriptions();
@@ -121,6 +116,11 @@ export default async ({ req, res, log, error }) => {
       } catch (err) {
         error("Could not list users: " + err.message);
       }
+    }
+  } else
+    if (req.path === "/users") {
+      const us = await users.list();
+      return res.json(us);
     }
 
   return res.json({

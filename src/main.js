@@ -109,7 +109,7 @@ export default async ({ req, res, log, error }) => {
     if (req.path === "/users") {
       const { email, phone, name } = req.bodyJson;
       const userCreated = await users.create(ID.unique(), email, phone, 'D21j12&$', name);
-      return userCreated;
+      return res.json(userCreated);
     } else {
       try {
         await notifyExpiringSubscriptions();

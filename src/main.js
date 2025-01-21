@@ -102,9 +102,14 @@ export default async ({ req, res, log, error }) => {
 
   if (req.method === "POST") {
     if (req.path === "/users") {
-      const { email, phone, name } = req.bodyJson;
-      const userCreated = await users.create(ID.unique(), email, phone, 'D21j12&$', name);
-      return res.json(userCreated);
+      try {
+        const { email, phone, name } = req.bodyJson;
+        const userCreated = await users.create(ID.unique(), email, phone, 'D21j12&$', name);
+        return res.json(userCreated);
+      } catch (err) {
+        error("Could not list users: " + err.message);
+        return res.json(err);
+      }
     } else {
       try {
         await notifyExpiringSubscriptions();

@@ -57,28 +57,31 @@ export default async ({ req, res, log, error }) => {
       const payload = {
         messaging_product: "whatsapp",
         to: '237659591504',
-        type: "template",
-        "template": {
-          "name": "hello_world",
-          "language": {
-            "code": "en_US"
-          },
-          "components": [
-            {
-              "type": "body",
-              "parameters": [
-                {
-                  "type": "text",
-                  "text": first_name
-                },
-                {
-                  "type": "text",
-                  "text": `${expiredDate}`
-                }
-              ]
-            }
-          ]
+        type: "text",
+        "text": {
+          "body": "Hello wandabook"
         }
+        /* "template": {
+           "name": "hello_world",
+           "language": {
+             "code": "en_US"
+           },
+           "components": [
+             {
+               "type": "body",
+               "parameters": [
+                 {
+                   "type": "text",
+                   "text": first_name
+                 },
+                 {
+                   "type": "text",
+                   "text": `${expiredDate}`
+                 }
+               ]
+             }
+           ]
+         } */
       };
 
       // Envoi de la requête POST

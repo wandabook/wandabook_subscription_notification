@@ -59,7 +59,7 @@ export default async ({ req, res, log, error }) => {
         to: '237659591504',
         type: "template",
         "template": {
-          "name": "auto_pay_reminder_3",
+          "name": "hello_world",
           "language": {
             "code": "en_US"
           },

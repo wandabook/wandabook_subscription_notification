@@ -35,7 +35,7 @@ export default async ({ req, res, log, error }) => {
 
       // Envoi de messages
       for (const user of users) {
-        const message = `Bonjour ${user.first_name}, votre abonnement expire le ${user.endSubscriptionDate}. Pensez à le renouveler pour éviter l'interruption des services.`;
+        // const message = `Bonjour ${user.first_name}, votre abonnement expire le ${user.endSubscriptionDate}. Pensez à le renouveler pour éviter l'interruption des services.`;
 
         // Exemple avec une API WhatsApp/SMS (Twilio, WhatsApp API)
         await sendWhatsAppMessage(user.phone, user.first_name, user.endSubscriptionDate);
@@ -49,18 +49,21 @@ export default async ({ req, res, log, error }) => {
 
 
   async function sendWhatsAppMessage(phoneNumber, first_name, expiredDate) {
-    const API_URL = "https://graph.facebook.com/v22.0/526640397203365/messages"; // Remplacez [YOUR_PHONE_NUMBER_ID] par l'ID de votre numéro
-    const ACCESS_TOKEN = "EAAYEu6JFiHEBO874wykFaIsEEGZAvyGOo2AwCA3V9RO1vFMtLAPZBqOE4qu3JL0K3xPCbDiQikS9MrWP5CZAeOnVjTSNMKoTEpD5Tb8KNvfvphMbmahhZClH9f5edoklZBEjQsqf3AZATClO2kMpm1BGnaYvDDXwHJC7Or54tfWhrPN2XiSP5vPjiKlZCYQn8sleQZDZD"; // Votre token d'accès permanent
+    const whatsapp_id = process.env.APPWRITE_WHATSAPP_NUMBER_ID;
+    const whatsapp_bearer_token = process.env.APPWRITE_WHATSAPP_TOKEN_ID;
+    const API_URL = `https://graph.facebook.com/v22.0/${whatsapp_id}/messages`; // Remplacez [YOUR_PHONE_NUMBER_ID] par l'ID de votre numéro
+    const ACCESS_TOKEN = `${whatsapp_bearer_token}`; // Votre token d'accès permanent
+    const message = `Bonjour ${first_name}, votre abonnement expire le ${expiredDate}. Pensez à le renouveler pour éviter l'interruption des services.`;
 
     try {
       // Corps de la requête pour envoyer un message texte
       const payload = {
         messaging_product: "whatsapp",
         "recipient_type": "individual",
-        to: '+237650601833',
+        to: `${phoneNumber}`,
         type: "text",
         text: {
-          "body": "Hello wandabook"
+          "body": `${message}`
         }
         /* "template": {
            "name": "hello_world",
@@ -93,11 +96,6 @@ export default async ({ req, res, log, error }) => {
         },
       });
       log(`Message envoyé avec succès à ${phoneNumber}:`, JSON.stringify(payload));
-      console.log(`Message envoyé avec succès à ${phoneNumber}:`, JSON.stringify(response.data));
-      log(`Message envoyé avec succès à ${phoneNumber}:`, JSON.stringify(response.status));
-      log(`Message envoyé avec succès à ${phoneNumber}:`, JSON.stringify(response.statusText));
-      log(`Message envoyé avec succès à ${phoneNumber}:`, JSON.stringify(response.config));
-
       return response.data;
     } catch (error) {
       console.error(`Erreur lors de l'envoi du message à ${phoneNumber}:`, error.response?.data || error.message);

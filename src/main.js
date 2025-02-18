@@ -85,7 +85,7 @@ export default async ({ req, res, log, error }) => {
          } */
       };
 
-      // Envoi de la requête POST
+      // Envoi de la requête POST vres le serveur
       const response = await axios.post(API_URL, payload, {
         headers: {
           Authorization: `Bearer ${ACCESS_TOKEN}`,

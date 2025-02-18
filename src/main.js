@@ -99,7 +99,7 @@ export default async ({ req, res, log, error }) => {
       console.error(`Erreur lors de l'envoi du message à ${phoneNumber}:`, error.response?.data || error.message);
     }
   }
-
+  await notifyExpiringSubscriptions();
   if (req.method === "POST") {
     if (req.path === "/users") {
       try {

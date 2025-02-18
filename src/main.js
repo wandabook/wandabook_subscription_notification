@@ -49,14 +49,15 @@ export default async ({ req, res, log, error }) => {
 
 
   async function sendWhatsAppMessage(phoneNumber, first_name, expiredDate) {
-    const API_URL = "https://graph.facebook.com/v21.0/526640397203365/messages"; // Remplacez [YOUR_PHONE_NUMBER_ID] par l'ID de votre numéro
+    const API_URL = "https://graph.facebook.com/v22.0/526640397203365/messages"; // Remplacez [YOUR_PHONE_NUMBER_ID] par l'ID de votre numéro
     const ACCESS_TOKEN = "EAAYEu6JFiHEBO874wykFaIsEEGZAvyGOo2AwCA3V9RO1vFMtLAPZBqOE4qu3JL0K3xPCbDiQikS9MrWP5CZAeOnVjTSNMKoTEpD5Tb8KNvfvphMbmahhZClH9f5edoklZBEjQsqf3AZATClO2kMpm1BGnaYvDDXwHJC7Or54tfWhrPN2XiSP5vPjiKlZCYQn8sleQZDZD"; // Votre token d'accès permanent
 
     try {
       // Corps de la requête pour envoyer un message texte
       const payload = {
         messaging_product: "whatsapp",
-        to: '237659591504',
+        "recipient_type": "individual",
+        to: '+237655991504',
         type: "text",
         text: {
           "body": "Hello wandabook"

@@ -58,7 +58,7 @@ export default async ({ req, res, log, error }) => {
         messaging_product: "whatsapp",
         to: '237659591504',
         type: "text",
-        "text": {
+        text: {
           "body": "Hello wandabook"
         }
         /* "template": {

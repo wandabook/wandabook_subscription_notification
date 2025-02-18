@@ -57,7 +57,7 @@ export default async ({ req, res, log, error }) => {
       const payload = {
         messaging_product: "whatsapp",
         "recipient_type": "individual",
-        to: '+237659591504',
+        to: '+237650601833',
         type: "text",
         text: {
           "body": "Hello wandabook"

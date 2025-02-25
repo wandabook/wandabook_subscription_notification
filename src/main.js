@@ -61,31 +61,31 @@ export default async ({ req, res, log, error }) => {
         messaging_product: "whatsapp",
         "recipient_type": "individual",
         to: `${phoneNumber}`,
-        type: "text",
-        text: {
+        type: "template",
+        /*text: {
           "body": `${message}`
+        },*/
+        "template": {
+          "name": "reminder",
+          "language": {
+            "code": "en_US"
+          },
+          "components": [
+            {
+              "type": "body",
+              "parameters": [
+                {
+                  "type": "text",
+                  "text": first_name
+                },
+                {
+                  "type": "text",
+                  "text": `${expiredDate}`
+                }
+              ]
+            }
+          ]
         }
-        /* "template": {
-           "name": "hello_world",
-           "language": {
-             "code": "en_US"
-           },
-           "components": [
-             {
-               "type": "body",
-               "parameters": [
-                 {
-                   "type": "text",
-                   "text": first_name
-                 },
-                 {
-                   "type": "text",
-                   "text": `${expiredDate}`
-                 }
-               ]
-             }
-           ]
-         } */
       };
 
       // Envoi de la requête POST vres le serveur

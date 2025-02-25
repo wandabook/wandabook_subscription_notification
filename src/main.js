@@ -66,7 +66,7 @@ export default async ({ req, res, log, error }) => {
           "body": `${message}`
         },*/
         "template": {
-          "name": "hello_word",
+          "name": "hello_world",
           "language": {
             "code": "en_US"
           },

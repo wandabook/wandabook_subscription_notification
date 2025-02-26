@@ -66,7 +66,7 @@ export default async ({ req, res, log, error }) => {
           "body": `${message}`
         },*/
         "template": {
-          "name": "tp_reminder",
+          "name": "reminder",
           "language": {
             "code": "en_US"
           },

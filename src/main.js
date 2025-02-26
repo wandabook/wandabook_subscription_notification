@@ -68,7 +68,7 @@ export default async ({ req, res, log, error }) => {
         "template": {
           "name": "reminder",
           "language": {
-            "code": "en"
+            "code": "en_US"
           },
           "components": [
             {

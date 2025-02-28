@@ -23,7 +23,7 @@ export default async ({ req, res, log, error }) => {
 
       // Récupération des utilisateurs dont l'abonnement expire dans 4 jours
       const response = await database.listDocuments(databaseId, collectionId, [
-        //Query.equal("endSubscriptionDate", targetDateISO),
+        Query.equal("endSubscriptionDate", targetDateISO),
       ]);
 
       const users = response.documents;

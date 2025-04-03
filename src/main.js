@@ -139,7 +139,8 @@ export default async ({ req, res, log, error }) => {
       return res.json(us);
     } else if (req.path == "/getUserIds") {
       const { id } = req.bodyJson;
-      return await getUserById(id)
+      const result = await getUserById(id)
+      return res.json(result);
     }
 
   return res.json({

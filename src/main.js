@@ -105,6 +105,15 @@ export default async ({ req, res, log, error }) => {
       console.error(`Erreur lors de l'envoi du message à ${phoneNumber}:`, error.response?.data || error.message);
     }
   }
+
+  async function getUserById(userId) {
+    try {
+      const user = await users.get(userId);  // Get user data by ID
+      return user;
+    } catch (error) {
+      return { 'error': 'Error fetching user:' + error }
+    }
+  }
   await notifyExpiringSubscriptions();
   if (req.method === "POST") {
     if (req.path === "/users") {
@@ -128,6 +137,9 @@ export default async ({ req, res, log, error }) => {
     if (req.path === "/users") {
       const us = await users.list();
       return res.json(us);
+    } else if (req.path == "/getUserIds/") {
+      const { id } = req.bodyJson;
+      return await getUserById(id)
     }
 
   return res.json({

@@ -137,15 +137,13 @@ export default async ({ req, res, log, error }) => {
     if (req.path === "/users") {
       const us = await users.list();
       return res.json(us);
-    } else if (req.path == "/getUserIds/") {
+    } else if (req.path == "/getUserIds") {
       const { id } = req.bodyJson;
       return await getUserById(id)
     }
 
   return res.json({
-    motto: "Build like a team of hundreds_",
-    learn: "https://appwrite.io/docs",
-    connect: "https://appwrite.io/discord",
-    getInspired: "https://builtwith.appwrite.io",
+    motto: "unknow services",
+
   });
 };

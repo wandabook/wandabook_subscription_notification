@@ -154,6 +154,7 @@ export default async ({ req, res, log, error }) => {
         const user = userDocs.documents[0];
         const isDraft = user.status === "Draft";
         const hasBarcode = user.barcode && user.barcode.trim() !== "";
+        log(`Payment Notification Received: ${JSON.stringify(result)}`);
         if (result.success && result.status === "ACCEPTED") {
           if (isDraft && !hasBarcode) {
             // Call the function to finalize user (e.g. generate barcode)
@@ -198,7 +199,7 @@ export default async ({ req, res, log, error }) => {
           }
       }
 
-      return res.json({ success: true, message: "Payment notification processed" });
+      return res.json({ success: false, message: "Payment failled" });
     }
 
     if (req.path === "/users") {

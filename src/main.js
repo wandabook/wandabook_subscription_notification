@@ -14,7 +14,7 @@ export default async ({ req, res, log, error }) => {
   const apikey = process.env.APPWRITE_CINETPAY_API_KEY; // Votre clé API CinetPay
   const siteId = process.env.APPWRITE_CINETPAY_SITE_ID; // Votre identifiant de site CinetPay
   const DATABASE_ID = process.env.APPWRITE_DATABASE_ID;
-  const COLLECTION_USER_ID = process.env.APPWRITE_USER_COLLECTION_ID;
+  const COLLECTION_USER_ID = process.env.APPWRITE_COLLECTION_PATRON;
   const POST_FUNCTION_ID = process.env.APPWRITE_FUNCTION_POST_ID;
 
   const database = new Databases(client);

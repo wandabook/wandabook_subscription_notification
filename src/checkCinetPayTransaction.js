@@ -7,7 +7,7 @@ import axios from 'axios';
  * @param {string} siteId - Votre identifiant de site CinetPay
  * @returns {Promise<object>} - Résultat de la vérification
  */
-async function checkCinetPayTransaction(transactionId, apikey, siteId) {
+export async function checkCinetPayTransaction(transactionId, apikey, siteId) {
     const url = "https://api-checkout.cinetpay.com/v2/payment/check";
 
     const payload = {
@@ -51,4 +51,3 @@ async function checkCinetPayTransaction(transactionId, apikey, siteId) {
     }
 }
 
-module.exports = { checkCinetPayTransaction };

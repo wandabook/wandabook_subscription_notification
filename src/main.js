@@ -194,7 +194,7 @@ export default async ({ req, res, log, error }) => {
           if (result.status === "REFUSED" || result.message == "PAYMENT_FAILED") {
             if (!hasBarcode) {
               await database.deleteDocument(DATABASE_ID, COLLECTION_USER_ID, user.$id);
-              console.log(`User ${user.$id} deleted (payment refused and no barcode)`);
+              log(`User ${user.$id} deleted (payment refused and no barcode)`);
             }
           }
       }

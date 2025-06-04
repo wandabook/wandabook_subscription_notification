@@ -158,8 +158,17 @@ export default async ({ req, res, log, error }) => {
           if (isDraft && !hasBarcode) {
             // Call the function to finalize user (e.g. generate barcode)
             const execution = await functions.createExecution(POST_FUNCTION_ID, JSON.stringify({
-              userId: user.$id,
-              email: user.email
+              first_name: user.first_name,
+              last_name: user.last_name,
+              email: user.email,
+              notification_email: user.notification_email,
+              password: user.password,
+              phone: user.phone,
+              address1: user.address1,
+              city: user.city,
+              cni: user.cni,
+              patron_id: user.patron_id,
+              tags: user.tags,
             }));
             const output = execution.stdout;
             try {
@@ -169,7 +178,8 @@ export default async ({ req, res, log, error }) => {
               if (barcode && barcode.trim() !== "") {
                 // Mettre à jour le document utilisateur avec le nouveau barcode
                 await database.updateDocument(DATABASE_ID, COLLECTION_USER_ID, user.$id, {
-                  barcode: barcode
+                  barcode: barcode,
+                  password: "",
                 });
                 return { updated: true, barcode };
               } else {

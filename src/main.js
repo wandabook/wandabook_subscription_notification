@@ -1,5 +1,6 @@
-import { Client, Databases, ID, Users } from 'node-appwrite';
+import { Client, Databases, ID, Users, Functions, Query } from 'node-appwrite';
 import axios from 'axios';
+import { checkCinetPayTransaction } from "./checkCinetPayTransaction.js";
 
 // This Appwrite function will be executed every time your function is triggered
 export default async ({ req, res, log, error }) => {
@@ -9,8 +10,17 @@ export default async ({ req, res, log, error }) => {
     .setEndpoint(process.env.APPWRITE_FUNCTION_API_ENDPOINT)
     .setProject(process.env.APPWRITE_FUNCTION_PROJECT_ID)
     .setKey(req.headers['x-appwrite-key'] ?? '');
+
+  const apikey = process.env.APPWRITE_CINETPAY_API_KEY; // Votre clé API CinetPay
+  const siteId = process.env.APPWRITE_CINETPAY_SITE_ID; // Votre identifiant de site CinetPay
+  const DATABASE_ID = process.env.APPWRITE_DATABASE_ID;
+  const COLLECTION_USER_ID = process.env.APPWRITE_USER_COLLECTION_ID;
+  const POST_FUNCTION_ID = process.env.APPWRITE_FUNCTION_POST_ID;
+
   const database = new Databases(client);
   const users = new Users(client);
+  const functions = new Functions(client);
+
   async function notifyExpiringSubscriptions() {
     const databaseId = process.env.APPWRITE_DATABASE_ID; // Remplacez par l'ID de votre base de données
     const collectionId = process.env.APPWRITE_COLLECTION_PATRON; // Remplacez par l'ID de votre collection
@@ -116,6 +126,71 @@ export default async ({ req, res, log, error }) => {
   }
   await notifyExpiringSubscriptions();
   if (req.method === "POST") {
+    if (req.path === "/paymentnotification") {
+      const {
+        cpm_trans_id,
+        cpm_site_id,
+        cpm_trans_date,
+        cpm_amount,
+        cpm_currency,
+        payment_method,
+        cel_phone_num,
+        cpm_phone_prefixe,
+        cpm_language,
+        cpm_version,
+        cpm_payment_config,
+        cpm_page_action,
+        cpm_custom,
+        cpm_designation,
+        cpm_error_message,
+        signature
+      } = req.bodyJson;
+      log(`Payment Notification Received:
+        Transaction ID: ${cpm_trans_id}
+        Site ID: ${cpm_site_id} `);
+      const result = await checkCinetPayTransaction(cpm_trans_id, apikey, siteId);
+      const userDocs = await database.listDocuments(DATABASE_ID, COLLECTION_USER_ID, [Query.equal("cpm_trans_id", cpm_trans_id)]);
+      if (userDocs.total === 1) {
+        const user = userDocs.documents[0];
+        const isDraft = user.status === "Draft";
+        const hasBarcode = user.barcode && user.barcode.trim() !== "";
+        if (result.success && result.status === "ACCEPTED") {
+          if (isDraft && !hasBarcode) {
+            // Call the function to finalize user (e.g. generate barcode)
+            const execution = await functions.createExecution(POST_FUNCTION_ID, JSON.stringify({
+              userId: user.$id,
+              email: user.email
+            }));
+            const output = execution.stdout;
+            try {
+              const result = JSON.parse(output);
+              const barcode = result.barcode;
+
+              if (barcode && barcode.trim() !== "") {
+                // Mettre à jour le document utilisateur avec le nouveau barcode
+                await database.updateDocument(DATABASE_ID, COLLECTION_USER_ID, user.$id, {
+                  barcode: barcode
+                });
+                return { updated: true, barcode };
+              } else {
+                return { updated: false, reason: "No barcode returned." };
+              }
+            } catch (error) {
+              return { updated: false, error: "Invalid JSON output from post_function." };
+            }
+          }
+        } else
+          if (result.status === "REFUSED") {
+            if (!hasBarcode) {
+              await database.deleteDocument(DATABASE_ID, COLLECTION_USER_ID, user.$id);
+              console.log(`User ${user.$id} deleted (payment refused and no barcode)`);
+            }
+          }
+      }
+
+      return res.json({ success: true, message: "Payment notification processed" });
+    }
+
     if (req.path === "/users") {
       try {
         const { email, phone, name } = req.bodyJson;

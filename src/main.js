@@ -130,20 +130,6 @@ export default async ({ req, res, log, error }) => {
       const {
         cpm_trans_id,
         cpm_site_id,
-        cpm_trans_date,
-        cpm_amount,
-        cpm_currency,
-        payment_method,
-        cel_phone_num,
-        cpm_phone_prefixe,
-        cpm_language,
-        cpm_version,
-        cpm_payment_config,
-        cpm_page_action,
-        cpm_custom,
-        cpm_designation,
-        cpm_error_message,
-        signature
       } = req.bodyJson;
       log(`Payment Notification Received:
         Transaction ID: ${cpm_trans_id}
@@ -201,6 +187,9 @@ export default async ({ req, res, log, error }) => {
 
       return res.json({ success: false, message: "Payment failled" });
     }
+
+    if (req.path === "/paymentcancel") { }
+
 
     if (req.path === "/users") {
       try {

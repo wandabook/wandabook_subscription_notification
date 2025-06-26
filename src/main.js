@@ -162,12 +162,12 @@ export default async ({ req, res, log, error }) => {
               ExecutionMethod.POST, // method (optional)
               {},
             );
-            const output = execution.stdout;
+            const output = execution.responseBody;
 
             try {
               const result = JSON.parse(output);
               const barcode = result.barcode;
-
+              log(`User ${user.$id} Update`,JSON.stringify(output));
               if (barcode && barcode.trim() !== "") {
                 // Mettre à jour le document utilisateur avec le nouveau barcode
                 await database.updateDocument(DATABASE_ID, COLLECTION_USER_ID, user.$id, {

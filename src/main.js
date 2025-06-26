@@ -1,4 +1,4 @@
-import { Client, Databases, ID, Users, Functions, Query } from 'node-appwrite';
+import { Client, Databases, ID, Users, Functions, Query, ExecutionMethod } from 'node-appwrite';
 import axios from 'axios';
 import { checkCinetPayTransaction } from "./checkCinetPayTransaction.js";
 
@@ -156,7 +156,12 @@ export default async ({ req, res, log, error }) => {
               cni: user.cni,
               patron_id: user.patron_id,
               tags: user.tags,
-            }));
+            }),
+              false, // async (optional)
+              'patron', // path (optional)
+              ExecutionMethod.POST, // method (optional)
+              {},
+            );
             const output = execution.stdout;
             try {
               const result = JSON.parse(output);

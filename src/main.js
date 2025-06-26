@@ -148,7 +148,7 @@ export default async ({ req, res, log, error }) => {
               first_name: user.first_name,
               last_name: user.last_name,
               email: user.email,
-              notification_email: user.notification_email,
+              notification_email: user.email,
               password: user.password,
               phone: user.phone,
               address1: user.address1,

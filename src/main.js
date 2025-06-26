@@ -163,6 +163,7 @@ export default async ({ req, res, log, error }) => {
               {},
             );
             const output = execution.stdout;
+
             try {
               const result = JSON.parse(output);
               const barcode = result.barcode;
@@ -173,12 +174,14 @@ export default async ({ req, res, log, error }) => {
                   barcode: barcode,
                   password: "",
                 });
-                return { updated: true, barcode };
+                log(`User ${user.$id} Update`,JSON.stringify({ updated: true, barcode }));
+                return res.json({ updated: true, barcode });
               } else {
-                return { updated: false, reason: "No barcode returned." };
+                log(`User ${user.$id} Update`,JSON.stringify({ updated: false, reason: "No barcode returned." }));
+                return res.json({ updated: false, reason: "No barcode returned." });
               }
             } catch (error) {
-              return { updated: false, error: "Invalid JSON output from post_function." };
+              return res.json({ updated: false, error: "Invalid JSON output from post_function." });
             }
           }
         } else

@@ -166,7 +166,7 @@ export default async ({ req, res, log, error }) => {
 
             try {
               const result = JSON.parse(output);
-              const barcode = result.barcode;
+              const barcode = result.result.barcode;
               log(`User ${user.$id} Update`,JSON.stringify(output));
               if (barcode && barcode.trim() !== "") {
                 // Mettre à jour le document utilisateur avec le nouveau barcode

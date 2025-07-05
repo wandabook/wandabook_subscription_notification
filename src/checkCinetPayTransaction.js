@@ -51,3 +51,22 @@ export async function checkCinetPayTransaction(transactionId, apikey, siteId) {
     }
 }
 
+export async function sendEmail({ to, subject, text }) {
+  try {
+    const response = await axios.post(process.env.SEND_EMAIL_ROUTE, {
+      to,
+      subject,
+      text
+    }, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    return response.data;
+  } catch (error) {
+    if (error.response && error.response.data) {
+      throw new Error(error.response.data.error || 'Failed to send email');
+    }
+    throw error;
+  }
+}

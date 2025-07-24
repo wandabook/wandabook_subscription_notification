@@ -135,7 +135,7 @@ export default async ({ req, res, log, error }) => {
               {}
             );
             const output = execution.responseBody;
-
+            log('output', JSON.stringify(output));
             try {
               const result = JSON.parse(output);
               const barcode = result.result.barcode;
@@ -184,7 +184,7 @@ export default async ({ req, res, log, error }) => {
             } catch (error) {
               return res.json({
                 updated: false,
-                error: 'Invalid JSON output from post_function.'+JSON.stringify(error),
+                error: 'Invalid JSON output from post_function.',
               });
             }
           } else if (hasBarcode) {

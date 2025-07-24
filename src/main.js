@@ -113,7 +113,7 @@ export default async ({ req, res, log, error }) => {
           );
           log('Decoded metadata JSON:', JSON.stringify(metadataJson));
           const metadata = metadataJson;
-          if (isDraft && !hasBarcode) {
+          if (!hasBarcode) {
             // Call the function to finalize user (e.g. generate barcode)
             const execution = await functions.createExecution(
               POST_FUNCTION_ID,

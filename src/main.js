@@ -150,6 +150,7 @@ export default async ({ req, res, log, error }) => {
                   {
                     barcode: barcode,
                     password: '',
+                    cpm_trans_id:""
                     status: 'Active',
                   }
                 );
@@ -220,6 +221,7 @@ export default async ({ req, res, log, error }) => {
                 isAnnual: metadata.isAnnual,
                 patron_id: metadata.patron_id,
                 tags: metadata.tags,
+                cpm_trans_id:""
               }
             );
             log(`User ${user.$id} updated to Active with existing barcode`);

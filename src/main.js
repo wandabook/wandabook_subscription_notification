@@ -100,6 +100,7 @@ export default async ({ req, res, log, error }) => {
         COLLECTION_USER_ID,
         [Query.equal('cpm_trans_id', cpm_trans_id)]
       );
+      log(`Payment Notification userDocs: ${JSON.stringify(userDocs)}`);
       if (userDocs.total === 1) {
         const user = userDocs.documents[0];
         const isDraft = user.status === 'Draft';

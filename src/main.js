@@ -150,7 +150,7 @@ export default async ({ req, res, log, error }) => {
                   {
                     barcode: barcode,
                     password: '',
-                    cpm_trans_id:""
+                    cpm_trans_id:"",
                     status: 'Active',
                   }
                 );

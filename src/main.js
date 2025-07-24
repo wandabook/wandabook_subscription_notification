@@ -44,7 +44,7 @@ export default async ({ req, res, log, error }) => {
 
       // Récupération des utilisateurs dont l'abonnement expire dans 4 jours
       const response = await database.listDocuments(databaseId, collectionId, [
-        //Query.equal('endSubscriptionDate', targetDateISO),
+        Query.equal('endSubscriptionDate', targetDateISO),
         Query.limit(100), // Limite le nombre de résultats pour éviter les surcharges
       ]);
 
@@ -184,7 +184,7 @@ export default async ({ req, res, log, error }) => {
             } catch (error) {
               return res.json({
                 updated: false,
-                error: 'Invalid JSON output from post_function.',
+                error: 'Invalid JSON output from post_function.'+JSON.stringify(error),
               });
             }
           } else if (hasBarcode) {

@@ -291,7 +291,10 @@ export default async ({ req, res, log, error }) => {
     const { id } = req.bodyJson;
     const result = await getUserById(id);
     return res.json(result);
-  }else{
+  }else if(req.path === '/patron'){
+     return res.json({});
+  }
+  else{
       await notifyExpiringSubscriptions();
   }
 

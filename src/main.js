@@ -10,6 +10,7 @@ import {
 import axios from 'axios';
 import {
   checkCinetPayTransaction,
+  generateWelcomeMessage,
   sendEmail,
 } from './checkCinetPayTransaction.js';
 
@@ -171,7 +172,8 @@ export default async ({ req, res, log, error }) => {
               // send email to user
               const email = user.email;
               const subject = 'Wandabook Subscription Confirmation';
-              const text = `Bonjour ${user.first_name},\n\nVotre abonnement a été activé avec succès. Votre identifiant de patron est ${barcode}.\n\nMerci pour votre confiance !\n\nCordialement,\nL'équipe Wandabook`;
+              const text =generateWelcomeMessage(user.first_name,barcode,process.env.APPWRITE_LOGIN_LINK);
+              
               try {
                 await sendEmail({ to: email, subject, text });
                 log(`Email sent to ${email}`);

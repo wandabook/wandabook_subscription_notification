@@ -70,3 +70,22 @@ export async function sendEmail({ to, subject, text }) {
     throw error;
   }
 }
+
+export const generateWelcomeMessage = (
+  firstName,
+  cardCode,
+  loginLink
+) => {
+  return `Bonjour ${firstName},
+
+Merci pour votre abonnement !
+
+Voici vos identifiants pour accéder à votre compte :
+- Code-barres : ${cardCode}
+- Mot de passe: Votre mot de passe enregistré pendant la creation du compte
+
+Vous pouvez vous connecter à votre espace ici : ${loginLink}
+
+Cordialement,  
+L'équipe`;
+};

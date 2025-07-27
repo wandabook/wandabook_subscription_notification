@@ -264,7 +264,7 @@ export default async ({ req, res, log, error }) => {
     } else if (req.path === '/paymentcancel') {
     } else if (req.path === '/changePassword') {
       const { userid, password } = req.bodyJson;
-      users.updateEmailPassword(userid, password)
+      users.updatePassword(userid, password)
         .then(response => {
            return res.json({status:200});
         })

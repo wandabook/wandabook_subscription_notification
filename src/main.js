@@ -21,7 +21,7 @@ export default async ({ req, res, log, error }) => {
   const client = new Client()
     .setEndpoint(process.env.APPWRITE_FUNCTION_API_ENDPOINT)
     .setProject(process.env.APPWRITE_FUNCTION_PROJECT_ID)
-    .setKey(req.headers['x-appwrite-key'] ?? '');
+    .setKey(process.env.APPWRITE_API_KEY);
 
   const apikey = process.env.APPWRITE_CINETPAY_API_KEY; // Votre clé API CinetPay
   const siteId = process.env.APPWRITE_CINETPAY_SITE_ID; // Votre identifiant de site CinetPay

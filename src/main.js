@@ -263,8 +263,8 @@ export default async ({ req, res, log, error }) => {
       return res.json({ success: false, message: 'Payment failled' });
     } else if (req.path === '/paymentcancel') {
     } else if (req.path === '/changePassword') {
-      const { userid, password } = req.bodyJson;
-      const resp = await users.updatePassword(userid, password)
+      const { userId, password } = req.bodyJson;
+      const resp = await users.updatePassword(userId, password)
       return res.json(resp);
     }
 

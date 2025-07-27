@@ -264,14 +264,8 @@ export default async ({ req, res, log, error }) => {
     } else if (req.path === '/paymentcancel') {
     } else if (req.path === '/changePassword') {
       const { userid, password } = req.bodyJson;
-      users.updatePassword(userid, password)
-        .then(response => {
-           return res.json({status:200});
-        })
-        .catch(error => {
-          console.error('Erreur admin :', error.message);
-          return res.json({status:-1});
-        });
+      const resp = await users.updatePassword(userid, password)
+      return res.json(resp);
     }
 
     if (req.path === '/users') {

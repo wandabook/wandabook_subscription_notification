@@ -58,7 +58,7 @@ export default async ({ req, res, log, error }) => {
 
       // Envoi de messages
       for (const user of users) {
-         const message = `Bonjour ${user.first_name}, votre abonnement expire le ${user.endSubscriptionDate}. Pensez à le renouveler pour éviter l'interruption des services.`;
+        const message = `Bonjour ${user.first_name}, votre abonnement expire le ${user.endSubscriptionDate}. Pensez à le renouveler pour éviter l'interruption des services.`;
         await sendEmail({
           to: user.email,
           subject: "Rappel d'expiration d'abonnement",
@@ -151,7 +151,7 @@ export default async ({ req, res, log, error }) => {
                   {
                     barcode: barcode,
                     password: '',
-                    cpm_trans_id:"",
+                    cpm_trans_id: "",
                     status: 'Active',
                   }
                 );
@@ -172,8 +172,8 @@ export default async ({ req, res, log, error }) => {
               // send email to user
               const email = user.email;
               const subject = 'Wandabook Subscription Confirmation';
-              const text =generateWelcomeMessage(user.first_name,barcode,process.env.APPWRITE_LOGIN_LINK);
-              
+              const text = generateWelcomeMessage(user.first_name, barcode, process.env.APPWRITE_LOGIN_LINK);
+
               try {
                 await sendEmail({ to: email, subject, text });
                 log(`Email sent to ${email}`);
@@ -223,7 +223,7 @@ export default async ({ req, res, log, error }) => {
                 isAnnual: metadata.isAnnual,
                 patron_id: metadata.patron_id,
                 tags: metadata.tags,
-                cpm_trans_id:""
+                cpm_trans_id: ""
               }
             );
             log(`User ${user.$id} updated to Active with existing barcode`);
@@ -261,9 +261,17 @@ export default async ({ req, res, log, error }) => {
       }
 
       return res.json({ success: false, message: 'Payment failled' });
-    }
-
-    if (req.path === '/paymentcancel') {
+    } else if (req.path === '/paymentcancel') {
+    } else if (req.path === '/changePassword') {
+      const { userid, password } = req.bodyJson;
+      users.updateEmailPassword(userid, password)
+        .then(response => {
+           return res.json({status:200});
+        })
+        .catch(error => {
+          console.error('Erreur admin :', error.message);
+          return res.json({status:-1});
+        });
     }
 
     if (req.path === '/users') {
@@ -296,11 +304,11 @@ export default async ({ req, res, log, error }) => {
     const { id } = req.bodyJson;
     const result = await getUserById(id);
     return res.json(result);
-  }else if(req.path === '/patron'){
-     return res.json({});
+  } else if (req.path === '/patron') {
+    return res.json({});
   }
-  else{
-      await notifyExpiringSubscriptions();
+  else {
+    await notifyExpiringSubscriptions();
   }
 
   return res.json({
